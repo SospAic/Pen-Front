@@ -28,6 +28,15 @@ dns:
 proxies:
 
 
+- name: 17701-vless-tcp                         
+  type: vless
+  server: ny.sospaic.top                       
+  port: 17701                                     
+  uuid: aec5b179-279c-4d94-f22f-7937b134dbc0     
+  udp: true
+  tls: false
+
+
 - name: 10396-ss-tcp                         
   type: ss
   server: ny.sospaic.top                        
@@ -45,21 +54,6 @@ proxies:
   udp: true
   sni: ny.sospaic.top
   skip-cert-verify: false
-
-
-- name: 23075-vless-ws                         
-  type: vless
-  server: ny.sospaic.top                       
-  port: 23075                                     
-  uuid: c489b6b0-109f-4e1b-d4ea-3f16e0b6a679     
-  udp: true
-  tls: false
-  network: ws
-  servername: null                    
-  ws-opts:
-    path: "null"                             
-    headers:
-      Host: null 
 
 
 - name: 35426-vmess-tcp                         
@@ -82,9 +76,9 @@ proxy-groups:
   proxies: 
 
     - 35426-vmess-tcp
-    - 23075-vless-ws
     - 54816-trojan-tcp-tls
     - 10396-ss-tcp
+    - 17701-vless-tcp
 
 
 - name: 自动选择
@@ -95,9 +89,9 @@ proxy-groups:
   proxies:  
 
     - 35426-vmess-tcp
-    - 23075-vless-ws
     - 54816-trojan-tcp-tls
     - 10396-ss-tcp
+    - 17701-vless-tcp
     
 - name: 🌍选择代理节点
   type: select
@@ -107,9 +101,9 @@ proxy-groups:
     - DIRECT
 
     - 35426-vmess-tcp
-    - 23075-vless-ws
     - 54816-trojan-tcp-tls
     - 10396-ss-tcp
+    - 17701-vless-tcp
 
 rules:
   - GEOIP,LAN,DIRECT

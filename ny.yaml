@@ -28,54 +28,9 @@ dns:
 proxies:
 
 
-- name: 23175-ss-tcp                         
-  type: ss
-  server: 38.77.133.80                        
-  port: 23175                                     
-  password: T2hCaTJhZDRDOW5UU2x5U0ZudmxPQTRmOFowZUNqU2o=
-  cipher: aes-256-gcm
-  udp: true
-
-
-- name: 30533-trojan-tcp-tls                         
-  type: trojan
-  server: 38.77.133.80                       
-  port: 30533                                     
-  password: wzlGZpTU3B    
-  udp: true
-  sni: ny.sospaic.top
-  skip-cert-verify: false
-
-
-- name: 13020-vless-ws                         
-  type: vless
-  server: 38.77.133.80                       
-  port: 13020                                     
-  uuid: 077c3518-9e38-4636-b77a-b62934c44f75     
-  udp: true
-  tls: false
-  network: ws
-  servername: null                    
-  ws-opts:
-    path: "null"                             
-    headers:
-      Host: null 
-
-
-- name: 41730-vmess-tcp                         
-  type: vmess
-  server: 38.77.133.80                        
-  port: 41730                                     
-  uuid: bb85b303-3824-4fe9-832c-361ef94147c3       
-  alterId: 0
-  cipher: auto
-  udp: true
-  tls: false
-
-
 - name: 10396-ss-tcp                         
   type: ss
-  server: 38.77.133.80                        
+  server: ny.sospaic.top                        
   port: 10396                                     
   password: U2Nqa2l4NkVOdmxaMTRwWEJ6azczV2ZGdzRsM05WTEM=
   cipher: aes-256-gcm
@@ -84,7 +39,7 @@ proxies:
 
 - name: 54816-trojan-tcp-tls                         
   type: trojan
-  server: 38.77.133.80                       
+  server: ny.sospaic.top                       
   port: 54816                                     
   password: AwFhGczDor    
   udp: true
@@ -94,7 +49,7 @@ proxies:
 
 - name: 23075-vless-ws                         
   type: vless
-  server: 38.77.133.80                       
+  server: ny.sospaic.top                       
   port: 23075                                     
   uuid: c489b6b0-109f-4e1b-d4ea-3f16e0b6a679     
   udp: true
@@ -109,7 +64,7 @@ proxies:
 
 - name: 35426-vmess-tcp                         
   type: vmess
-  server: 38.77.133.80                        
+  server: ny.sospaic.top                        
   port: 35426                                     
   uuid: ad961976-2845-4f65-b29a-3c8c616ead74       
   alterId: 0
@@ -130,10 +85,6 @@ proxy-groups:
     - 23075-vless-ws
     - 54816-trojan-tcp-tls
     - 10396-ss-tcp
-    - 41730-vmess-tcp
-    - 13020-vless-ws
-    - 30533-trojan-tcp-tls
-    - 23175-ss-tcp
 
 
 - name: 自动选择
@@ -147,10 +98,6 @@ proxy-groups:
     - 23075-vless-ws
     - 54816-trojan-tcp-tls
     - 10396-ss-tcp
-    - 41730-vmess-tcp
-    - 13020-vless-ws
-    - 30533-trojan-tcp-tls
-    - 23175-ss-tcp
     
 - name: 🌍选择代理节点
   type: select
@@ -163,10 +110,6 @@ proxy-groups:
     - 23075-vless-ws
     - 54816-trojan-tcp-tls
     - 10396-ss-tcp
-    - 41730-vmess-tcp
-    - 13020-vless-ws
-    - 30533-trojan-tcp-tls
-    - 23175-ss-tcp
 
 rules:
   - GEOIP,LAN,DIRECT

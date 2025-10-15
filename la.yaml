@@ -1,0 +1,126 @@
+port: 7890
+allow-lan: true
+mode: rule
+log-level: info
+unified-delay: true
+global-client-fingerprint: chrome
+dns:
+  enable: false
+  listen: :53
+  ipv6: true
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  default-nameserver: 
+    - 223.5.5.5
+    - 8.8.8.8
+  nameserver:
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+  fallback:
+    - https://1.0.0.1/dns-query
+    - tls://dns.google
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+    ipcidr:
+      - 240.0.0.0/4
+
+proxies:
+
+
+- name: 28000-vless-tcp-vision           
+  type: vless
+  server: la.sospaic.top                     
+  port: 28000                                  
+  uuid: 3d19de1e-90ac-467d-a088-6a6ee9022d07  
+  network: tcp
+  tls: true
+  udp: true
+  flow: xtls-rprx-vision
+
+
+
+- name: 26132-ss-tcp                         
+  type: ss
+  server: la.sospaic.top                        
+  port: 26132                                     
+  password: UEF6TDB2d2V1ZnBWcW9senQ2WHVLZmF2NnBNeDJiRUQ=
+  cipher: aes-256-gcm
+  udp: true
+
+
+- name: 10558-trojan-tcp-tls                         
+  type: trojan
+  server: la.sospaic.top                       
+  port: 10558                                     
+  password: gwrSZUEHwQ    
+  udp: true
+  sni: la.sospaic.top
+  skip-cert-verify: false
+
+
+- name: 31377-vless-tcp                         
+  type: vless
+  server: la.sospaic.top                       
+  port: 31377                                     
+  uuid: bf89424e-c027-4b75-da20-319bc9971151     
+  udp: true
+  tls: false
+
+
+- name: 36477-vmess-tcp                         
+  type: vmess
+  server: la.sospaic.top                        
+  port: 36477                                     
+  uuid: 33e021a6-6026-4338-d72c-2c6b81edb612       
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+
+
+proxy-groups:
+- name: 负载均衡
+  type: load-balance
+  url: https://www.gstatic.com/generate_204
+  interval: 300
+  strategy: round-robin
+  proxies: 
+
+    - 36477-vmess-tcp
+    - 31377-vless-tcp
+    - 10558-trojan-tcp-tls
+    - 26132-ss-tcp
+    - 28000-vless-tcp-vision
+
+
+- name: 自动选择
+  type: url-test
+  url: https://www.gstatic.com/generate_204
+  interval: 300
+  tolerance: 50
+  proxies:  
+
+    - 36477-vmess-tcp
+    - 31377-vless-tcp
+    - 10558-trojan-tcp-tls
+    - 26132-ss-tcp
+    - 28000-vless-tcp-vision
+    
+- name: 🌍选择代理节点
+  type: select
+  proxies:
+    - 负载均衡                                         
+    - 自动选择
+    - DIRECT
+
+    - 36477-vmess-tcp
+    - 31377-vless-tcp
+    - 10558-trojan-tcp-tls
+    - 26132-ss-tcp
+    - 28000-vless-tcp-vision
+
+rules:
+  - GEOIP,LAN,DIRECT
+  - GEOIP,CN,DIRECT
+  - MATCH,🌍选择代理节点
